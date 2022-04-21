@@ -3,7 +3,6 @@ import styled from "styled-components/macro";
 import { QUERIES } from "../constants";
 import { FaUtensils, FaBars } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
-import styles from "./Navbar.module.css";
 
 export default function Navbar() {
 	const [showNav, setShowNav] = useState(false);
@@ -22,19 +21,19 @@ export default function Navbar() {
 				SkyWave
 			</Logo>
 			<TabletAndUp>
-				<FaBars size={24} color={"white"} />
+				<FaBars size={24} color={!showNav ? "white" : "black"} />
 			</TabletAndUp>
 			<SideNav>
 				<NavLink to={"/"}>
 					<Nav>Home</Nav>
 				</NavLink>
-				<NavLink to={"/menu"} activeClassName='active'>
+				<NavLink to={"/menu"}>
 					<Nav>Menu</Nav>
 				</NavLink>
-				<NavLink to={"/about"} activeClassName='active'>
+				<NavLink to={"/about"}>
 					<Nav>About Us</Nav>
 				</NavLink>
-				<NavLink to={"contact"} activeClassName='active'>
+				<NavLink to={"/contact"}>
 					<Nav>Contact</Nav>
 				</NavLink>
 			</SideNav>
@@ -58,6 +57,11 @@ const Wrapper = styled.header`
 	transition: all 0.5s ease;
 	font-weight: 600;
 	z-index: 3;
+
+	& a {
+		color: ${(p) => (!p.showNav ? "white" : "black")};
+		text-decoration: none;
+	}
 `;
 
 const Logo = styled.div`
@@ -72,11 +76,6 @@ const SideNav = styled.ul`
 	@media ${QUERIES.laptopAndUp} {
 		display: flex;
 		gap: 1rem;
-	}
-
-	& > a {
-		color: white;
-		text-decoration: none;
 	}
 `;
 const Nav = styled.li`

@@ -53,7 +53,7 @@ const Heading = styled.h1`
 `;
 
 const SubHeading = styled.h3`
-	font-size: clamp(1.2rem, 2vw, 2rem);
+	font-size: clamp(1.2rem, 2vw, 1.75rem);
 	font-weight: 300;
 	text-transform: uppercase;
 `;

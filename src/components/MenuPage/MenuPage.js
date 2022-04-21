@@ -6,7 +6,7 @@ import MaxWidthWrapper from "../MaxWidthWrapper";
 import Menu from "../Menu/Menu";
 const MenuApp = () => {
 	const filters = ["all", "breakfast", "lunch", "dinner"];
-	const [selection, setSelection] = useState("lunch");
+	const [selection, setSelection] = useState("all");
 	const dataToSend = (criteria, arr) => {
 		if (criteria === "all") return arr;
 		return arr.filter((item) => item.category.toLowerCase() === criteria);
@@ -49,6 +49,7 @@ const Filter = styled.div`
 	text-transform: capitalize;
 	background: ${(p) => (p.active ? "#BA181B" : "white")};
 	color: ${(p) => (p.active ? "white" : "black")};
+	cursor: pointer;
 `;
 
 export default MenuApp;
