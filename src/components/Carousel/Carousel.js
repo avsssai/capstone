@@ -1,8 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import HomeImage from "../assets/capstone-home.avif";
 import Navbar from "../Navbar";
-export default function Carousel({ heading, subHeading }) {
+export default function Carousel({ heading, subHeading, image }) {
 	const [showNav, setShowNav] = React.useState(false);
 	const changeShowNav = () => {
 		if (window.scrollY < 80) {
@@ -14,7 +13,7 @@ export default function Carousel({ heading, subHeading }) {
 	window.addEventListener("scroll", changeShowNav);
 	return (
 		<Wrapper>
-			<ImageWrapper src={HomeImage} alt='background image of vegetables' />
+			<ImageWrapper src={require(`../assets/${image}.avif`)} alt='background image of vegetables' />
 			<InHouseNav showNav={showNav}>
 				<Navbar />
 			</InHouseNav>
@@ -54,7 +53,7 @@ const Heading = styled.h1`
 `;
 
 const SubHeading = styled.h3`
-	font-size: clamp(1.2rem, 2vw, 2.5rem);
+	font-size: clamp(1.2rem, 2vw, 2rem);
 	font-weight: 300;
 	text-transform: uppercase;
 `;
