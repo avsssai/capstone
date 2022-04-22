@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import styled from "styled-components/macro";
 import { QUERIES } from "../constants";
 import { FaUtensils, FaBars } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
-export default function Navbar() {
+export default function Navbar({ whiteBackground }) {
 	const [showNav, setShowNav] = useState(false);
 	const changeShowNav = () => {
 		if (window.scrollY >= 20) {
@@ -16,10 +16,12 @@ export default function Navbar() {
 	window.addEventListener("scroll", changeShowNav);
 	return (
 		<Wrapper showNav={showNav}>
-			<Logo>
-				<FaUtensils color='red' size={24} />
-				SkyWave
-			</Logo>
+			<Link to='/'>
+				<Logo>
+					<FaUtensils color='red' size={24} />
+					SkyWave
+				</Logo>
+			</Link>
 			<TabletAndUp>
 				<FaBars size={24} color={!showNav ? "white" : "black"} />
 			</TabletAndUp>
@@ -53,7 +55,7 @@ const Wrapper = styled.header`
 	left: 0;
 	background: ${(p) => (p.showNav ? "white" : null)};
 	color: ${(p) => (!p.showNav ? "white" : "black")};
-	box-shadow: ${(p) => (p.showNav ? "0 2px 5px 0 rgba(0,0,0,0.16)" : null)};
+	box-shadow: ${(p) => (p.showNav && p?.whiteBackground ? "0 2px 5px 0 rgba(0,0,0,0.16)" : null)};
 	transition: all 0.5s ease;
 	font-weight: 600;
 	z-index: 3;

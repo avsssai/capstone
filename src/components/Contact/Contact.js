@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components/macro";
 import Carousel from "../Carousel";
 import Hero from "../Hero";
@@ -7,6 +7,19 @@ import { ContactData } from "../data";
 import { COLORS, QUERIES } from "../constants";
 import MaxWidthWrapper from "../MaxWidthWrapper";
 export default function Contact() {
+	const [formState, setFormState] = useState({ name: "", email: "", phone: "", message: "" });
+
+	const handleChange = (e) => {
+		setFormState({
+			...formState,
+			[e.target.name]: e.target.value,
+		});
+	};
+
+	const submitForm = (e) => {
+		e.preventDefault();
+		console.log(formState);
+	};
 	return (
 		<Wrapper>
 			<Carousel
@@ -43,14 +56,14 @@ export default function Contact() {
 					<ContactForm>
 						<FormTitle>Get In Touch</FormTitle>
 						<Label>Name</Label>
-						<Input />
+						<Input placeholder='Name' name='name' onChange={handleChange} />
 						<Label>Email</Label>
-						<Input />
+						<Input placeholder='Email' name='email' onChange={handleChange} />
 						<Label>Phone</Label>
-						<Input />
+						<Input placeholder='Phone' name='phone' onChange={handleChange} />
 						<Label>Message</Label>
-						<TextArea />
-						<Button>Submit</Button>
+						<TextArea name='message' onChange={handleChange} />
+						<Button onClick={submitForm}>Submit</Button>
 					</ContactForm>
 					<ImageWrapper>
 						<Image src={require("../assets/about-1.avif")} />
@@ -72,7 +85,7 @@ const InfoWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	gap: 2rem;
-	@media ${QUERIES.tabletAndUp} {
+	@media ${QUERIES.laptopAndUp} {
 		flex-direction: revert;
 		justify-content: space-evenly;
 		& svg {
@@ -98,8 +111,11 @@ const Phone = styled.div``;
 const ContactFormWrapper = styled.div`
 	margin-top: 2rem;
 	display: grid;
-	grid-template-columns: repeat(2, 1fr);
 	gap: 2rem;
+	grid-template-columns: 1fr;
+	@media ${QUERIES.laptopAndUp} {
+		grid-template-columns: repeat(2, 1fr);
+	}
 `;
 
 const FormTitle = styled(Title)`
@@ -113,6 +129,11 @@ const Input = styled.input`
 	width: 100%;
 	font-size: 1.5rem;
 	margin-bottom: 1rem;
+	color: #212529;
+	&::placeholder {
+		opacity: 0.7;
+		font-size: 1.2rem;
+	}
 `;
 const TextArea = styled.textarea`
 	padding: 0.75rem 0.25rem;
@@ -134,7 +155,15 @@ const Button = styled.button`
 	display: block;
 `;
 
-const ImageWrapper = styled.div``;
+const ImageWrapper = styled.div`
+	display: none;
+	@media ${QUERIES.laptopAndUp} {
+		display: revert;
+	}
+`;
 const Image = styled.img`
 	display: block;
+	width: 100%;
+	height: 100%;
+	min-width: 350px;
 `;
