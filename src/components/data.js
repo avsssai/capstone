@@ -58,3 +58,11 @@ export const AboutData = {
 		since: require("./assets/about-2.avif"),
 	},
 };
+
+export const ContactData = {
+	address: "2903 Avenue Z, MG Marg, Mumbai, India",
+
+	phone: ["(91) 987 654 3210", "(91) 987 654 3211"],
+
+	email: "contact@skywave.com",
+};

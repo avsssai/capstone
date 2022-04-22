@@ -4,6 +4,7 @@ import styled from "styled-components/macro";
 import MaxWidthWrapper from "../MaxWidthWrapper";
 import { AboutData } from "../data";
 import { QUERIES } from "../constants";
+import Hero from "../Hero";
 export default function About() {
 	return (
 		<Wrapper>
@@ -15,10 +16,10 @@ export default function About() {
 				image={"about"}
 			/>
 			<ContentWrapper>
-				<Hero>
+				<HeroWrapper>
 					<Heading>The History</Heading>
 					<Content>{AboutData.history}</Content>
-				</Hero>
+				</HeroWrapper>
 				<Stories>
 					<Story>
 						<ImageContainer>
@@ -45,16 +46,7 @@ export default function About() {
 }
 
 const ContentWrapper = styled(MaxWidthWrapper)``;
-const Hero = styled.div`
-	padding: 1rem;
-	border-top: 10px solid #ba181b;
-	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-	margin-top: -4rem;
-	background: white;
-	@media ${QUERIES.tabletAndUp} {
-		padding: 4rem;
-	}
-`;
+
 const Heading = styled.h1`
 	font-size: clamp(2vw, 3rem, 1.5rem);
 	text-align: center;
@@ -63,6 +55,8 @@ const Heading = styled.h1`
 const Content = styled.p`
 	white-space: pre-wrap;
 `;
+
+const HeroWrapper = styled(Hero)``;
 
 const Wrapper = styled.div``;
 
