@@ -1,22 +1,23 @@
 import React from "react";
 import styled from "styled-components/macro";
 
-export default function Card({ name, img, ingredients, category, availability, weight, vegetarian, cost }) {
+export default function Card({ name, image, description, categoryId, availibilityCount, weight, isVegetarian, cost }) {
 	return (
 		<Wrapper>
 			<ImageWrapper>
-				<Image src={img} />
+				<Image src={image} />
 			</ImageWrapper>
 			<Name>{name}</Name>
-			<Ingredients>
+			<Ingredients>{description}</Ingredients>
+			{/* <Ingredients>
 				{ingredients.map((item) => (
 					<Item key={item}>{item}</Item>
 				))}
-			</Ingredients>
-			<Detail>Available for {category}</Detail>
-			<Detail>{availability} more items available</Detail>
+			</Ingredients> */}
+			<Detail>Available for {categoryId}</Detail>
+			<Detail>{availibilityCount} more items available</Detail>
 			<Detail>{weight}g</Detail>
-			<Detail>{vegetarian ? "🥗 Vegetarian" : "🍗 Non-Vegetarian"}</Detail>
+			<Detail>{isVegetarian ? "🥗 Vegetarian" : "🍗 Non-Vegetarian"}</Detail>
 		</Wrapper>
 	);
 }
@@ -46,7 +47,9 @@ const Image = styled.img`
 const Name = styled.h3`
 	font-size: clamp(1.5rem, 1.5vw, 1.5rem);
 `;
-const Ingredients = styled.div``;
+const Ingredients = styled.div`
+	font-weight: 600;
+`;
 const Item = styled.span`
 	&:not(:last-of-type)::after {
 		content: ", ";

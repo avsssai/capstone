@@ -1,16 +1,24 @@
 import React, { useState } from "react";
 import styled from "styled-components/macro";
+import { useGetData } from "../../hooks/useGetData";
+import { getAllItems } from "../../redux/actions/menuActions";
 import Carousel from "../Carousel/Carousel";
-import { MenuData } from "../data";
 import MaxWidthWrapper from "../MaxWidthWrapper";
 import Menu from "../Menu/Menu";
 const MenuApp = () => {
+	const [status, data, error] = useGetData(getAllItems);
 	const filters = ["all", "breakfast", "lunch", "dinner"];
 	const [selection, setSelection] = useState("all");
 	const dataToSend = (criteria, arr) => {
 		if (criteria === "all") return arr;
-		return arr.filter((item) => item.category.toLowerCase() === criteria);
+		return arr.filter((item) => item.categoryId.toLowerCase() === criteria);
 	};
+	console.log(dataToSend(selection, data));
+	// console.log(status, data);
+	function setSelectionFilter(filter) {
+		if (status === "loading") return;
+		setSelection(filter);
+	}
 	return (
 		<Wrapper>
 			<Carousel
@@ -22,12 +30,12 @@ const MenuApp = () => {
 			/>
 			<Filters>
 				{filters.map((filter) => (
-					<Filter key={filter} onClick={() => setSelection(filter)} active={selection === filter}>
+					<Filter key={filter} onClick={() => setSelectionFilter(filter)} active={selection === filter}>
 						{filter}
 					</Filter>
 				))}
 			</Filters>
-			<Menu data={dataToSend(selection, MenuData)} />
+			<Menu data={dataToSend(selection, data)} />
 		</Wrapper>
 	);
 };

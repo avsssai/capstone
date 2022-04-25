@@ -3,7 +3,11 @@ import Carousel from "../Carousel/Carousel";
 import Menu from "../Menu";
 import styled from "styled-components/macro";
 import { MenuData } from "../data";
+import { useGetData } from "../../hooks/useGetData";
+import { getAllItems } from "../../redux/actions/menuActions";
 export default function Home() {
+	const [status, data] = useGetData(getAllItems);
+	console.log(status, data);
 	return (
 		<>
 			<Carousel
@@ -17,7 +21,7 @@ export default function Home() {
 					if more of us valued food and cheer and song above hoarded gold, it would be a merrier world.
 				</SubHeader>
 			</Section>
-			<Menu data={MenuData} />
+			<Menu data={data} status={status} />
 		</>
 	);
 }

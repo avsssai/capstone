@@ -1,17 +1,20 @@
 import React from "react";
 import styled from "styled-components";
 import Card from "../Card";
-import { QUERIES } from "../constants";
 import MaxWidthWrapper from "../MaxWidthWrapper";
 
-export default function Menu({ data }) {
-	return (
-		<Wrapper>
-			{data.map((card) => (
-				<Card {...card} key={card.id} />
-			))}
-		</Wrapper>
-	);
+export default function Menu({ data, status }) {
+	if (status === "loading") {
+		return <h1>Loading...</h1>;
+	} else {
+		return (
+			<Wrapper>
+				{data.map((card) => (
+					<Card {...card} key={card.id} />
+				))}
+			</Wrapper>
+		);
+	}
 }
 
 const Wrapper = styled(MaxWidthWrapper)`

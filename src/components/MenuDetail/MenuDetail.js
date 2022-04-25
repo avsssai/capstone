@@ -1,8 +1,8 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import Carousel from "../components/Carousel";
-import { MenuData } from "../components/data";
-import Navbar from "../components/Navbar";
+import Carousel from "../Carousel";
+import { MenuData } from "../data";
+import Navbar from "../Navbar";
 import styled from "styled-components/macro";
 export default function MenuDetail() {
 	const { id } = useParams();
