@@ -13,7 +13,7 @@ export default function Carousel({ heading, subHeading, image }) {
 	window.addEventListener("scroll", changeShowNav);
 	return (
 		<Wrapper>
-			<ImageWrapper src={require(`../assets/${image}.avif`)} alt='background image of vegetables' />
+			<ImageWrapper src={require(`../assets/${image}.avif`)} lazy alt='background image of vegetables' />
 			<InHouseNav showNav={showNav}>
 				<Navbar />
 			</InHouseNav>

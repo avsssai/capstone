@@ -25,7 +25,7 @@ const Wrapper = styled(MaxWidthWrapper)`
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(min(350px, 100%), 1fr));
 	gap: 1rem;
-
+	grid-auto-rows: 1fr;
 	& a {
 		text-decoration: none;
 		color: inherit;
