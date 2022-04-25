@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Card from "../Card";
 import MaxWidthWrapper from "../MaxWidthWrapper";
@@ -10,7 +11,9 @@ export default function Menu({ data, status }) {
 		return (
 			<Wrapper>
 				{data.map((card) => (
-					<Card {...card} key={card.id} />
+					<Link to={`/menu/${card.id}`} key={card.id}>
+						<Card {...card} />
+					</Link>
 				))}
 			</Wrapper>
 		);
@@ -22,4 +25,9 @@ const Wrapper = styled(MaxWidthWrapper)`
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(min(350px, 100%), 1fr));
 	gap: 1rem;
+
+	& a {
+		text-decoration: none;
+		color: inherit;
+	}
 `;

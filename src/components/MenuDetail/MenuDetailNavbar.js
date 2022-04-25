@@ -4,18 +4,9 @@ import { QUERIES } from "../constants";
 import { FaUtensils, FaBars } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
 
-export default function Navbar({ whiteBackground }) {
-	const [showNav, setShowNav] = useState(false);
-	const changeShowNav = () => {
-		if (window.scrollY >= 20) {
-			setShowNav(true);
-		} else {
-			setShowNav(false);
-		}
-	};
-	window.addEventListener("scroll", changeShowNav);
+export default function Navbar() {
 	return (
-		<Wrapper showNav={showNav}>
+		<Wrapper>
 			<Link to='/'>
 				<Logo>
 					<FaUtensils color='red' size={24} />
@@ -23,7 +14,7 @@ export default function Navbar({ whiteBackground }) {
 				</Logo>
 			</Link>
 			<TabletAndUp>
-				<FaBars size={24} color={!showNav ? "white" : "black"} />
+				<FaBars size={24} />
 			</TabletAndUp>
 			<SideNav>
 				<NavLink to={"/"}>
@@ -53,16 +44,16 @@ export const Wrapper = styled.header`
 	width: 100%;
 	top: 0;
 	left: 0;
-	background: ${(p) => (p.showNav ? "white" : null)};
-	color: ${(p) => (!p.showNav ? "white" : "black")};
-	box-shadow: ${(p) => (p.showNav && p?.whiteBackground ? "0 2px 5px 0 rgba(0,0,0,0.16)" : null)};
-	transition: all 0.5s ease;
+	background: white;
+	color: black;
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16);
+
 	font-weight: 600;
 	z-index: 3;
 
 	& a {
-		color: ${(p) => (!p.showNav ? "white" : "black")};
 		text-decoration: none;
+		color: inherit;
 	}
 `;
 

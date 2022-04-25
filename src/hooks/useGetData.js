@@ -6,7 +6,9 @@ export function useGetData(action) {
 	const menuState = useSelector((state) => state.menu);
 	const { status, data, error } = menuState;
 	useEffect(() => {
-		if (status === "idle") dispatch(action());
+		if (status === "idle") {
+			dispatch(action());
+		}
 	}, [status, action, dispatch]);
 	return [status, data, error];
 }
