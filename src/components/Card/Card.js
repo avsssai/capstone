@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components/macro";
+import { FaTag, FaHashtag, FaCookieBite, FaWeightHanging, FaLeaf } from "react-icons/fa";
+import { COLORS } from "../constants";
 
 export default function Card({ name, image, description, categoryId, availibilityCount, weight, isVegetarian, cost }) {
 	return (
@@ -8,16 +10,31 @@ export default function Card({ name, image, description, categoryId, availibilit
 				<Image src={image} />
 			</ImageWrapper>
 			<Name>{name}</Name>
-			<Ingredients>{description}</Ingredients>
+			<Detail>
+				<FaCookieBite color={COLORS.primary} />
+				{description}
+			</Detail>
 			{/* <Ingredients>
 				{ingredients.map((item) => (
 					<Item key={item}>{item}</Item>
 				))}
 			</Ingredients> */}
-			<Detail>Available for {categoryId}</Detail>
-			<Detail>{availibilityCount} more items available</Detail>
-			<Detail>{weight}g</Detail>
-			<Detail>{isVegetarian ? "🥗 Vegetarian" : "🍗 Non-Vegetarian"}</Detail>
+			<Detail>
+				<FaTag color={COLORS.primary} />
+				Available for {categoryId}
+			</Detail>
+			<Detail>
+				<FaHashtag color={COLORS.primary} />
+				{availibilityCount} more items available
+			</Detail>
+			<Detail>
+				<FaWeightHanging color={COLORS.primary} />
+				{weight}g
+			</Detail>
+			<Detail>
+				<FaLeaf color={COLORS.primary} />
+				{isVegetarian ? "Vegetarian" : "Non-Vegetarian"}
+			</Detail>
 		</Wrapper>
 	);
 }
@@ -30,6 +47,7 @@ const Wrapper = styled.div`
 	flex-direction: column;
 	gap: 0.25rem;
 	border-radius: 15px;
+	height: 100%;
 `;
 
 const ImageWrapper = styled.div`
@@ -47,16 +65,24 @@ const Image = styled.img`
 const Name = styled.h3`
 	font-size: clamp(1.5rem, 1.5vw, 1.5rem);
 `;
-const Ingredients = styled.div`
-	font-weight: 600;
-`;
-const Item = styled.span`
-	&:not(:last-of-type)::after {
-		content: ", ";
-	}
-`;
+// const Ingredients = styled.div`
+// 	font-weight: 600;
+// 	display: flex;
+// 	align-items: center;
+// `;
+// const Item = styled.span`
+// 	&:not(:last-of-type)::after {
+// 		content: ", ";
+// 	}
+// `;
 
 const Detail = styled.div`
 	font-weight: 600;
 	margin-bottom: 0.25rem;
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	& svg {
+		flex-shrink: 0;
+	}
 `;

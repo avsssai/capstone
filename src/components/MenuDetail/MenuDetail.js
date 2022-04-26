@@ -1,16 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import MenuDetailNavbar from "./MenuDetailNavbar";
 import MaxWidthWrapper from "../MaxWidthWrapper";
 import styled from "styled-components/macro";
 import { useSelector } from "react-redux";
-import { FaEdit, FaUserAlt } from "react-icons/fa";
+import { FaEdit, FaUserAlt, FaWeightHanging } from "react-icons/fa";
 import { selectItemById } from "../../redux/selectors";
 import { COLORS, QUERIES } from "../constants";
+import Modal from "../Modal/Modal";
 
 export default function MenuDetail() {
 	const { id } = useParams();
-	console.log(id);
 	const item = useSelector((state) => selectItemById(state, id));
 	const {
 		name,
@@ -25,7 +25,7 @@ export default function MenuDetail() {
 		isVegetarian,
 		reviews,
 	} = item;
-	console.log(image);
+	const [isOpen, setIsOpen] = useState(false);
 	return (
 		<>
 			<MenuDetailNavbar />;
@@ -41,7 +41,10 @@ export default function MenuDetail() {
 						<Detail>Available for {categoryId}</Detail>
 						<Detail>{availibilityCount} items available</Detail>
 						<Detail>{isVegetarian ? "Vegetarian" : "Non-Vegetarian"}</Detail>
-						<Detail>Weighs {weight}g</Detail>
+						<Detail>
+							<FaWeightHanging />
+							Weighs {weight}g
+						</Detail>
 						<Detail>
 							<h4>Ingredients</h4>
 							{description}
@@ -65,19 +68,24 @@ export default function MenuDetail() {
 						<WriteAReview>
 							<SectionHeading>Leave a review!</SectionHeading>
 							<IconWrapper>
-								<FaEdit size={24} color={COLORS.primary} />
+								<FaEdit size={24} color={COLORS.primary} onClick={() => setIsOpen(true)} />
 							</IconWrapper>
 						</WriteAReview>
 					</Content>
 					{reviews.map((review) => (
-						<Review>
-							<IconWrapper>
-								<FaUserAlt />
-							</IconWrapper>
-							{review.name}
+						<Review key={review.date}>
+							<ReviewIconWrapper>
+								<FaUserAlt size={48} color={COLORS.primary} />
+							</ReviewIconWrapper>
+							<ReviewDetail>
+								<h5>{review.name}</h5>
+								<DateStr>{new Date(review.date).toDateString()}</DateStr>
+								<Detail>{review.message}</Detail>
+							</ReviewDetail>
 						</Review>
 					))}
 				</ReviewsWrapper>
+				<Modal isOpen={isOpen} closeModal={() => setIsOpen(false)} header='Leave a review'></Modal>
 			</Wrapper>
 		</>
 	);
@@ -147,8 +155,22 @@ const WriteAReview = styled.div`
 	padding-bottom: 1rem;
 	border-bottom: 1px solid lightgray;
 `;
-const Review = styled.div``;
+const Review = styled.div`
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+`;
 
+const ReviewDetail = styled.div``;
+const DateStr = styled.div`
+	font-size: 0.75rem;
+	color: gray;
+	margin-bottom: 1rem;
+`;
+const ReviewIconWrapper = styled.div`
+	flex-shrink: 0;
+	align-self: flex-start;
+`;
 const SectionHeading = styled.div`
 	text-align: center;
 	flex: 10;

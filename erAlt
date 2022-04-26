@@ -1,0 +1,53 @@
+[33mcommit 65049645039c140976d40df04cb9ba095b5cbe98[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: unknown <avsssai@gmail.com>
+Date:   Mon Apr 25 20:14:14 2022 +0530
+
+    complete rest of menu detail page
+
+[33mcommit 4b6d455cd01fcdda0b7ff3efce05e8d4959e8a41[m
+Author: avsssai <avsssai@gmail.com>
+Date:   Mon Apr 25 18:24:57 2022 +0530
+
+    menu detail page implementation semi done
+
+[33mcommit 5d192bbee3ff5bb1d7c978a7a70e12bcae0c14c7[m
+Author: avsssai <avsssai@gmail.com>
+Date:   Mon Apr 25 12:55:11 2022 +0530
+
+    sync with original json
+
+[33mcommit cbd21caa57af174b47660bba313eea3b60bec4ef[m
+Author: avsssai <avsssai@gmail.com>
+Date:   Fri Apr 22 17:51:09 2022 +0530
+
+    added live-server
+
+[33mcommit bd14b6628506c8ba1feaba2fb73760ebb04b3636[m
+Author: avsssai <avsssai@gmail.com>
+Date:   Fri Apr 22 11:39:16 2022 +0530
+
+    contact page half done
+
+[33mcommit a928fa19590c759995ca5e73950f6a0ce62769ad[m
+Author: avsssai <avsssai@gmail.com>
+Date:   Fri Apr 22 02:34:02 2022 +0530
+
+    about page completed
+
+[33mcommit ac1706c0b8aa214d74d712d9be8698717a731a38[m
+Author: avsssai <avsssai@gmail.com>
+Date:   Fri Apr 22 01:16:52 2022 +0530
+
+    menu page complete
+
+[33mcommit 820ed8697215228213fbafecac0e434ea94ab71a[m
+Author: avsssai <avsssai@gmail.com>
+Date:   Thu Apr 21 19:13:08 2022 +0530
+
+    navbar and carousel complete
+
+[33mcommit 9a0c26acacda0aa438dc39cea8e771de74e4c005[m
+Author: avsssai <avsssai@gmail.com>
+Date:   Thu Apr 21 16:25:48 2022 +0530
+
+    Initialize project using Create React App
