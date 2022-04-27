@@ -13,7 +13,7 @@ export default function About() {
 				subHeading={
 					"restoring authenticity to food from the ground up  is the mission that drives us. Restaurization is the realization of a dream."
 				}
-				image={"about"}
+				images={["about"]}
 			/>
 			<ContentWrapper>
 				<HeroWrapper>

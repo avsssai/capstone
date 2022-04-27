@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import CarouselImage from "../CarouselImage/CarouselImage";
 import Navbar from "../Navbar";
-export default function Carousel({ heading, subHeading, image }) {
+export default function Carousel({ heading, subHeading, images }) {
 	const [showNav, setShowNav] = React.useState(false);
 	const changeShowNav = () => {
 		if (window.scrollY < 80) {
@@ -13,7 +14,10 @@ export default function Carousel({ heading, subHeading, image }) {
 	window.addEventListener("scroll", changeShowNav);
 	return (
 		<Wrapper>
-			<ImageWrapper src={require(`../assets/${image}.avif`)} lazy alt='background image of vegetables' />
+			<CarouselWrapper>
+				<CarouselImage images={[...images]} />
+			</CarouselWrapper>
+			{/* <ImageWrapper src={require(`../assets/${image}.avif`)} lazy alt='background image of vegetables' /> */}
 			<InHouseNav showNav={showNav}>
 				<Navbar />
 			</InHouseNav>
@@ -35,6 +39,9 @@ const ImageWrapper = styled.img`
 	display: block;
 	object-fit: cover;
 	filter: brightness(50%);
+`;
+const CarouselWrapper = styled.div`
+	height: 100%;
 `;
 
 const Content = styled.div`

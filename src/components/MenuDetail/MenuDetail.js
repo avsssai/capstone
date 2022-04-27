@@ -8,6 +8,7 @@ import { FaEdit, FaUserAlt, FaWeightHanging } from "react-icons/fa";
 import { selectItemById } from "../../redux/selectors";
 import { COLORS, QUERIES } from "../constants";
 import Modal from "../Modal/Modal";
+import Options from "../Options";
 
 export default function MenuDetail() {
 	const { id } = useParams();
@@ -85,7 +86,9 @@ export default function MenuDetail() {
 						</Review>
 					))}
 				</ReviewsWrapper>
-				<Modal isOpen={isOpen} closeModal={() => setIsOpen(false)} header='Leave a review'></Modal>
+				<Modal isOpen={isOpen} closeModal={() => setIsOpen(false)} header='Leave a review'>
+					<Options items={["one", "two", "three"]} />
+				</Modal>
 			</Wrapper>
 		</>
 	);

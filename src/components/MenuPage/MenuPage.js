@@ -26,7 +26,7 @@ const MenuApp = () => {
 				subHeading={
 					"if more of us valued food and cheer and song above hoarded gold, it would be a merrier world. - JRR Tolkien"
 				}
-				image={"menu"}
+				images={["menu"]}
 			/>
 			<Filters>
 				{filters.map((filter) => (

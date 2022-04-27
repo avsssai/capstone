@@ -13,7 +13,7 @@ export default function Home() {
 			<Carousel
 				heading={"Welcome to SkyWave Restaurant"}
 				subHeading={"Healthy, Authentic and Safe Food"}
-				image={"capstone-home"}
+				images={["capstone-home", "home-2", "home-3"]}
 			/>
 			<Section>
 				<Header>Menu</Header>

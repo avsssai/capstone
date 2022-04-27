@@ -25,7 +25,7 @@ export default function Contact() {
 			<Carousel
 				heading={"Contact Us"}
 				subHeading={"Got a Question? Feel free to reach out to us"}
-				image={"contact"}
+				images={["contact"]}
 			/>
 			<ContentWrapper>
 				<Hero>
