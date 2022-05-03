@@ -3,16 +3,17 @@ import ReactDom from "react-dom";
 import { FaWindowClose } from "react-icons/fa";
 
 import styled from "styled-components/macro";
-import { COLORS } from "../constants";
+import { COLORS, QUERIES } from "../constants";
+import MaxWidthWrapper from "../MaxWidthWrapper";
 export default function Modal({ isOpen, header = "Modal Header", closeModal, children }) {
 	if (!isOpen) return null;
 	return ReactDom.createPortal(
-		<Wrapper onClick={closeModal}>
+		<Wrapper>
 			<ModalWrapper>
 				<ModalHeader>
 					{header}
 					<CloseIcon onClick={closeModal}>
-						<FaWindowClose color={COLORS.primary} />
+						<FaWindowClose color={"white"} />
 					</CloseIcon>
 				</ModalHeader>
 				{children}
@@ -38,11 +39,10 @@ const ModalWrapper = styled.div`
 	z-index: 1100;
 
 	background: white;
-	top: 20%;
+	top: 40%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	border-radius: 10px;
-	padding: 1.5rem 2rem;
 `;
 
 const ModalHeader = styled.h2`
@@ -51,6 +51,14 @@ const ModalHeader = styled.h2`
 	align-items: center;
 	justify-content: space-between;
 	margin-bottom: 1rem;
+	background: ${COLORS.primary};
+	color: white;
+	padding: 1rem;
+	/* width: 90vw; */
+	border-radius: 10px 10px 0 0;
+	/* @media ${QUERIES.tabletAndUp} {
+		width: min(60vw, 1200px);
+	} */
 `;
 const CloseIcon = styled.span`
 	top: 0;

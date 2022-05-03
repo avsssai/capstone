@@ -14,7 +14,19 @@
 			"weight": 160,
 			"isVegetarian": false,
 			"categoryId": "Breakfast",
-			"reviews": []
+			"reviews": [
+				{
+					"atmosphere": "Average",
+					"email": "avsssai@gmail.com",
+					"foodQuality": "Satisfied",
+					"menuVariety": "Average",
+					"message": "yes",
+					"name": "Shiva addanki",
+					"phone": "09866296899",
+					"ratings": "2",
+					"service": "Average"
+				}
+			]
 		},
 		{
 			"id": 2,

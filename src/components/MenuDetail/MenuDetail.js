@@ -9,10 +9,12 @@ import { selectItemById } from "../../redux/selectors";
 import { COLORS, QUERIES } from "../constants";
 import Modal from "../Modal/Modal";
 import Options from "../Options";
+import { submitReview } from "../../redux/actions/menuDetailActions";
 
 export default function MenuDetail() {
 	const { id } = useParams();
 	const item = useSelector((state) => selectItemById(state, id));
+
 	const {
 		name,
 		description,
@@ -26,7 +28,61 @@ export default function MenuDetail() {
 		isVegetarian,
 		reviews,
 	} = item;
+	const reviewOptions = ["Satisfied", "Average", "Not Satisfied"];
 	const [isOpen, setIsOpen] = useState(false);
+	const [currentModal, setCurrentModal] = useState("reviewForm");
+	const [formState, setFormState] = useState({
+		name: "",
+		email: "",
+		phone: "",
+		foodQuality: null,
+		menuVariety: null,
+		service: null,
+		atmosphere: null,
+		message: "",
+		ratings: 0,
+	});
+	const selectOption = (e, stateName) => {
+		console.log(formState);
+		setFormState((state) => ({
+			...state,
+			[e.target.name]: e.target.value,
+		}));
+	};
+	const handleChange = (e) => {
+		setFormState({
+			...formState,
+			[e.target.name]: e.target.value,
+		});
+	};
+
+	const submitForm = () => {
+		// console.log(formState);
+		submitReview(formState);
+		setCurrentModal("review");
+	};
+
+	const ratings = {
+		1: "😶",
+		2: "🙄",
+		3: "😐",
+		4: "😋",
+		5: "😁",
+	};
+
+	const selectRating = (key) => {
+		setFormState({
+			...formState,
+			ratings: key,
+		});
+	};
+
+	const sendReview = () => {
+		console.log(formState);
+		submitReview(item, formState, id);
+		setIsOpen(false);
+		setCurrentModal("reviewForm");
+	};
 	return (
 		<>
 			<MenuDetailNavbar />;
@@ -43,7 +99,7 @@ export default function MenuDetail() {
 						<Detail>{availibilityCount} items available</Detail>
 						<Detail>{isVegetarian ? "Vegetarian" : "Non-Vegetarian"}</Detail>
 						<Detail>
-							<FaWeightHanging />
+							{/* <FaWeightHanging /> */}
 							Weighs {weight}g
 						</Detail>
 						<Detail>
@@ -86,9 +142,85 @@ export default function MenuDetail() {
 						</Review>
 					))}
 				</ReviewsWrapper>
-				<Modal isOpen={isOpen} closeModal={() => setIsOpen(false)} header='Leave a review'>
-					<Options items={["one", "two", "three"]} />
-				</Modal>
+				{currentModal === "reviewForm" ? (
+					<Modal isOpen={isOpen} closeModal={() => setIsOpen(false)} header='Feedback' border={true}>
+						<BorderWrapper>
+							<FormWrapper>
+								<Input name='name' placeholder='Name' value={formState.name} onChange={handleChange} />
+								<Input
+									name='email'
+									placeholder='Email'
+									value={formState.email}
+									onChange={handleChange}
+								/>
+								<Input
+									name='phone'
+									fullWidth
+									placeholder='Phone Number'
+									value={formState.phone}
+									onChange={handleChange}
+								/>
+							</FormWrapper>
+							<Options
+								items={reviewOptions}
+								header='Food Quality'
+								handleChange={selectOption}
+								stateName='foodQuality'
+								checkedName={formState["foodQuality"]}
+							/>
+							<Options
+								items={reviewOptions}
+								header='Menu Variety'
+								handleChange={selectOption}
+								stateName='menuVariety'
+								checkedName={formState["menuVariety"]}
+							/>
+							<Options
+								items={reviewOptions}
+								header='Service'
+								handleChange={selectOption}
+								stateName='service'
+								checkedName={formState["service"]}
+							/>
+							<Options
+								items={reviewOptions}
+								header='Atmosphere'
+								handleChange={selectOption}
+								stateName='atmosphere'
+								checkedName={formState["atmosphere"]}
+							/>
+							<Message
+								name='message'
+								placeholder='Message'
+								onChange={handleChange}
+								value={formState.message}
+							/>
+							<Detail>
+								<Buttons>
+									<Button onClick={submitForm}>Next</Button>
+									<Button onClick={() => setIsOpen(false)}>Cancel</Button>
+								</Buttons>
+							</Detail>
+						</BorderWrapper>
+					</Modal>
+				) : currentModal === "review" ? (
+					<Modal isOpen={isOpen} closeModal={() => setIsOpen(false)} header='Rating' border={true}>
+						<Ratings>
+							{Object.entries(ratings).map(([key, value]) => (
+								<Rating
+									key={key}
+									onClick={() => selectRating(key)}
+									value={key}
+									selected={formState.ratings === key}>
+									{value}
+								</Rating>
+							))}
+						</Ratings>
+						<Button onClick={sendReview}>Submit</Button>
+					</Modal>
+				) : (
+					""
+				)}
 			</Wrapper>
 		</>
 	);
@@ -184,4 +316,69 @@ const IconWrapper = styled.div`
 	flex: 1;
 	flex-shrink: 0;
 	cursor: pointer;
+`;
+
+const Input = styled.input`
+	padding: 0.25rem 0.25rem;
+	display: block;
+	grid-column: ${(p) => p.fullWidth && "1/-1"};
+	font-size: 1.5rem;
+	margin-bottom: 1rem;
+	color: #212529;
+	&::placeholder {
+		opacity: 0.7;
+		font-size: 1.2rem;
+	}
+`;
+
+const FormWrapper = styled.div`
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: repeat(2, 1fr);
+	padding: 1rem;
+	gap: 1rem;
+`;
+
+const BorderWrapper = styled.div`
+	border: 1px solid #d3d3d3;
+	margin: 1rem;
+`;
+
+const Message = styled.textarea`
+	width: 95%;
+	resize: none;
+	margin: 0 0.5rem;
+	border-color: #d3d3d3;
+`;
+
+const Buttons = styled.div`
+	text-align: center;
+	display: flex;
+`;
+
+const Button = styled.button`
+	background: ${COLORS.primary};
+	padding: 0.25rem 0.75rem;
+	color: white;
+	border: 1px solid white;
+	text-align: center;
+	margin: 5px;
+	cursor: pointer;
+	display: block;
+`;
+
+const Ratings = styled.div`
+	margin: 2rem 4rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+`;
+
+const Rating = styled.span`
+	font-size: 2rem;
+	border-bottom: ${(p) => p.selected && "2px solid red"};
+	cursor: pointer;
+	&:hover {
+		border-bottom: 2px solid red;
+	}
 `;
