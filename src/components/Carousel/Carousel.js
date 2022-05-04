@@ -18,7 +18,7 @@ export default function Carousel({ heading, subHeading, images }) {
 				<CarouselImage images={[...images]} />
 			</CarouselWrapper>
 			{/* <ImageWrapper src={require(`../assets/${image}.avif`)} lazy alt='background image of vegetables' /> */}
-			<InHouseNav showNav={showNav}>
+			<InHouseNav showNav={showNav} data-testid='inhouse-nav'>
 				<Navbar />
 			</InHouseNav>
 			<Content>

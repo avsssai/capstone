@@ -23,7 +23,7 @@
 	"scripts": {
 		"start": "react-scripts start",
 		"build": "react-scripts build",
-		"test": "react-scripts test",
+		"test": "react-scripts test --coverage",
 		"serve": "json-server --watch public/assets/menu-data.json --port 5000",
 		"eject": "react-scripts eject"
 	},
@@ -44,5 +44,14 @@
 			"last 1 firefox version",
 			"last 1 safari version"
 		]
+	},
+	"devDependencies": {
+		"eslint": "^8.14.0",
+		"eslint-config-standard": "^17.0.0",
+		"eslint-plugin-import": "^2.26.0",
+		"eslint-plugin-node": "^11.1.0",
+		"eslint-plugin-promise": "^6.0.0",
+		"eslint-plugin-react": "^7.29.4",
+		"jest": "^27.5.1"
 	}
 }

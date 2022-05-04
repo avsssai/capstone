@@ -15,7 +15,7 @@ export default function Navbar({ whiteBackground }) {
 	};
 	window.addEventListener("scroll", changeShowNav);
 	return (
-		<Wrapper showNav={showNav}>
+		<Wrapper showNav={showNav} data-testid='nav'>
 			<Link to='/'>
 				<Logo>
 					<FaUtensils color='red' size={24} />
