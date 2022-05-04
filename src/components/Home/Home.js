@@ -6,7 +6,7 @@ import { MenuData } from "../data";
 import { useGetData } from "../../hooks/useGetData";
 import { getAllItems } from "../../redux/actions/menuActions";
 export default function Home() {
-	const [status, data] = useGetData(getAllItems);
+	const [status, data] = useGetData(getAllItems, "menu");
 	console.log(status, data);
 	return (
 		<>

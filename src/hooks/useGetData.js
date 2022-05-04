@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-export function useGetData(action) {
+export function useGetData(action, item, ...actionProps) {
 	const dispatch = useDispatch();
-	const menuState = useSelector((state) => state.menu);
-	const { status, data, error } = menuState;
+	const state = useSelector((state) => state[item]);
+	const { status, data, error } = state;
 	useEffect(() => {
 		if (status === "idle") {
-			dispatch(action());
+			dispatch(action(actionProps));
 		}
-	}, [status, action, dispatch]);
+	}, [status, action, dispatch, actionProps]);
 	return [status, data, error];
 }

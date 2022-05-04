@@ -1,5 +1,12 @@
 import axios from "axios";
-import { GET_ALL_ITEMS_FAILURE, GET_ALL_ITEMS_SUCCESS } from "../types";
+import {
+	GET_ONE_ITEM_FAILURE,
+	GET_ONE_ITEM_STARTED,
+	GET_ONE_ITEM_SUCCESS,
+	UPDATE_ONE_ITEM_FAILURE,
+	UPDATE_ONE_ITEM_STARTED,
+	UPDATE_ONE_ITEM_SUCCESS,
+} from "../types";
 
 export function submitReview(item, review, id) {
 	const datedReview = {
@@ -10,29 +17,66 @@ export function submitReview(item, review, id) {
 		...item,
 		[item.reviews]: datedReview,
 	};
-
 	return async (dispatch) => {
+		dispatch(updateStarted());
 		console.log("rin");
 		try {
-			await axios.put(`http://localhost:5000/data/${id}`, { ...req });
-			const json = await axios.get("http://localhost:5000/data");
-			dispatch(getItemsSuccess(json));
+			const res = await axios.put(`http://localhost:5000/data/${id}`, { ...req });
+			// const json = await axios.get("http://localhost:5000/data");
+			dispatch(getItemAfterUpdateSuccess(res));
 		} catch (error) {
-			dispatch(getItemsFailure(error));
+			dispatch(updateItemsFailure(error));
 		}
 	};
 }
 
-function getItemsSuccess(items) {
-	return {
-		type: GET_ALL_ITEMS_SUCCESS,
-		payload: items,
+export function getSingleMenuItemById(id) {
+	return async (dispatch) => {
+		dispatch(getSingleItemStarted());
+		try {
+			const res = await axios.get(`http://localhost:5000/data/${id}`);
+			dispatch(getSingleItemSuccess(res));
+		} catch (error) {
+			dispatch(getSinlgeItemFailed(error));
+		}
 	};
 }
 
-function getItemsFailure(error) {
+function getSingleItemStarted() {
 	return {
-		type: GET_ALL_ITEMS_FAILURE,
+		type: GET_ONE_ITEM_STARTED,
+	};
+}
+
+function getSingleItemSuccess(res) {
+	return {
+		type: GET_ONE_ITEM_SUCCESS,
+		payload: res,
+	};
+}
+
+function getSinlgeItemFailed(error) {
+	return {
+		type: GET_ONE_ITEM_FAILURE,
+		payload: error,
+	};
+}
+
+function updateStarted() {
+	return {
+		type: UPDATE_ONE_ITEM_STARTED,
+	};
+}
+function getItemAfterUpdateSuccess(res) {
+	return {
+		type: UPDATE_ONE_ITEM_SUCCESS,
+		payload: res,
+	};
+}
+
+function updateItemsFailure(error) {
+	return {
+		type: UPDATE_ONE_ITEM_FAILURE,
 		payload: error.message,
 	};
 }

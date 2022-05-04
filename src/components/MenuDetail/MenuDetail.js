@@ -4,17 +4,18 @@ import MenuDetailNavbar from "./MenuDetailNavbar";
 import MaxWidthWrapper from "../MaxWidthWrapper";
 import styled from "styled-components/macro";
 import { useSelector } from "react-redux";
-import { FaEdit, FaUserAlt, FaWeightHanging } from "react-icons/fa";
+import { FaEdit, FaUserAlt } from "react-icons/fa";
 import { selectItemById } from "../../redux/selectors";
 import { COLORS, QUERIES } from "../constants";
 import Modal from "../Modal/Modal";
 import Options from "../Options";
-import { submitReview } from "../../redux/actions/menuDetailActions";
+import { getSingleMenuItemById, submitReview } from "../../redux/actions/menuDetailActions";
+import { useGetData } from "../../hooks/useGetData";
 
 export default function MenuDetail() {
 	const { id } = useParams();
 	const item = useSelector((state) => selectItemById(state, id));
-
+	const [status, data, error] = useGetData(getSingleMenuItemById, "menuDetail", id);
 	const {
 		name,
 		description,
@@ -27,7 +28,7 @@ export default function MenuDetail() {
 		categoryId,
 		isVegetarian,
 		reviews,
-	} = item;
+	} = data;
 	const reviewOptions = ["Satisfied", "Average", "Not Satisfied"];
 	const [isOpen, setIsOpen] = useState(false);
 	const [currentModal, setCurrentModal] = useState("reviewForm");
@@ -83,6 +84,7 @@ export default function MenuDetail() {
 		setIsOpen(false);
 		setCurrentModal("reviewForm");
 	};
+	if (status === "pending") return "Loading...";
 	return (
 		<>
 			<MenuDetailNavbar />;
@@ -129,7 +131,7 @@ export default function MenuDetail() {
 							</IconWrapper>
 						</WriteAReview>
 					</Content>
-					{reviews.map((review) => (
+					{reviews?.map((review) => (
 						<Review key={review.date}>
 							<ReviewIconWrapper>
 								<FaUserAlt size={48} color={COLORS.primary} />
