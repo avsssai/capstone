@@ -5,6 +5,7 @@ import {
 	UPDATE_ONE_ITEM_STARTED,
 	UPDATE_ONE_ITEM_SUCCESS,
 	UPDATE_ONE_ITEM_FAILURE,
+	REMOVE_ONE_ITEM,
 } from "../types";
 
 const initialState = {
@@ -49,6 +50,8 @@ function MenuDetailReducer(state = initialState, action) {
 				status: "failure",
 				error: action.payload.error,
 			};
+		case REMOVE_ONE_ITEM:
+			return initialState;
 		default:
 			return state;
 	}

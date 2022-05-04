@@ -6,7 +6,7 @@ import Carousel from "../Carousel/Carousel";
 import MaxWidthWrapper from "../MaxWidthWrapper";
 import Menu from "../Menu/Menu";
 const MenuApp = () => {
-	const [status, data, error] = useGetData(getAllItems);
+	const [status, data, error] = useGetData(getAllItems, "menu");
 	const filters = ["all", "breakfast", "lunch", "dinner"];
 	const [selection, setSelection] = useState("all");
 	const dataToSend = (criteria, arr) => {

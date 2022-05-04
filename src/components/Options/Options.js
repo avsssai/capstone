@@ -17,7 +17,7 @@ export default function Options({ items, header, handleChange, stateName, checke
 	return (
 		<Option>
 			<SectionHeader>{header}</SectionHeader>
-			<div>
+			<OptionList>
 				{items.map((item) => (
 					// <Checkbox item={item} key={item} name={item} />
 					<div key={item}>
@@ -31,7 +31,7 @@ export default function Options({ items, header, handleChange, stateName, checke
 						{item}
 					</div>
 				))}
-			</div>
+			</OptionList>
 		</Option>
 	);
 }
@@ -41,6 +41,11 @@ const Option = styled.fieldset`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+`;
+const OptionList = styled.div`
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
 `;
 const Label = styled.label``;
 const CheckBoxStyled = styled.input`

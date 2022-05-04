@@ -3,32 +3,34 @@ import {
 	GET_ONE_ITEM_FAILURE,
 	GET_ONE_ITEM_STARTED,
 	GET_ONE_ITEM_SUCCESS,
+	REMOVE_ONE_ITEM,
 	UPDATE_ONE_ITEM_FAILURE,
 	UPDATE_ONE_ITEM_STARTED,
 	UPDATE_ONE_ITEM_SUCCESS,
 } from "../types";
 
-export function submitReview(item, review, id) {
+export const submitReview = (item, review, id) => {
 	const datedReview = {
 		...review,
 		date: Date.now(),
 	};
 	const req = {
 		...item,
-		[item.reviews]: datedReview,
+		reviews: [...item.reviews, datedReview],
 	};
+	// console.log(item);
 	return async (dispatch) => {
 		dispatch(updateStarted());
-		console.log("rin");
+		console.log(req);
 		try {
-			const res = await axios.put(`http://localhost:5000/data/${id}`, { ...req });
+			const res = await axios.put(`http://localhost:5000/data/${id}`, req);
 			// const json = await axios.get("http://localhost:5000/data");
 			dispatch(getItemAfterUpdateSuccess(res));
 		} catch (error) {
 			dispatch(updateItemsFailure(error));
 		}
 	};
-}
+};
 
 export function getSingleMenuItemById(id) {
 	return async (dispatch) => {
@@ -48,7 +50,7 @@ function getSingleItemStarted() {
 	};
 }
 
-function getSingleItemSuccess(res) {
+export function getSingleItemSuccess(res) {
 	return {
 		type: GET_ONE_ITEM_SUCCESS,
 		payload: res,
@@ -59,6 +61,12 @@ function getSinlgeItemFailed(error) {
 	return {
 		type: GET_ONE_ITEM_FAILURE,
 		payload: error,
+	};
+}
+
+export function removeSelectedItem() {
+	return {
+		type: REMOVE_ONE_ITEM,
 	};
 }
 

@@ -1,21 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import MenuDetailNavbar from "./MenuDetailNavbar";
 import MaxWidthWrapper from "../MaxWidthWrapper";
 import styled from "styled-components/macro";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { FaEdit, FaUserAlt } from "react-icons/fa";
-import { selectItemById } from "../../redux/selectors";
+// import { selectItemById } from "../../redux/selectors";
 import { COLORS, QUERIES } from "../constants";
 import Modal from "../Modal/Modal";
 import Options from "../Options";
-import { getSingleMenuItemById, submitReview } from "../../redux/actions/menuDetailActions";
-import { useGetData } from "../../hooks/useGetData";
+import { getSingleItemSuccess, removeSelectedItem, submitReview } from "../../redux/actions/menuDetailActions";
+// import { useGetData } from "../../hooks/useGetData";
+import axios from "axios";
 
 export default function MenuDetail() {
 	const { id } = useParams();
-	const item = useSelector((state) => selectItemById(state, id));
-	const [status, data, error] = useGetData(getSingleMenuItemById, "menuDetail", id);
+	const dispatch = useDispatch();
+	// const item = useSelector((state) => selectItemById(state, id));
+	// const [status, data, error] = useGetData(getSingleMenuItemById, "menuDetail", id);
+	const currentItem = useSelector((state) => state.menuDetail);
+	useEffect(() => {
+		const fetchSingleMenuItem = async (id) => {
+			const res = await axios.get(`http://localhost:5000/data/${id}`).catch((err) => console.log("Err: ", err));
+			dispatch(getSingleItemSuccess(res));
+		};
+
+		if (id && id !== "") fetchSingleMenuItem(id);
+		return () => {
+			dispatch(removeSelectedItem());
+		};
+	}, [id, dispatch]);
 	const {
 		name,
 		description,
@@ -28,7 +42,7 @@ export default function MenuDetail() {
 		categoryId,
 		isVegetarian,
 		reviews,
-	} = data;
+	} = currentItem.data;
 	const reviewOptions = ["Satisfied", "Average", "Not Satisfied"];
 	const [isOpen, setIsOpen] = useState(false);
 	const [currentModal, setCurrentModal] = useState("reviewForm");
@@ -59,7 +73,6 @@ export default function MenuDetail() {
 
 	const submitForm = () => {
 		// console.log(formState);
-		submitReview(formState);
 		setCurrentModal("review");
 	};
 
@@ -80,11 +93,13 @@ export default function MenuDetail() {
 
 	const sendReview = () => {
 		console.log(formState);
-		submitReview(item, formState, id);
+		// submitReview(item, formState, id);
+		console.log("stuff", currentItem.data, formState, id);
+		dispatch(submitReview(currentItem.data, formState, id));
 		setIsOpen(false);
 		setCurrentModal("reviewForm");
 	};
-	if (status === "pending") return "Loading...";
+	if (currentItem.status === "pending") return "Loading...";
 	return (
 		<>
 			<MenuDetailNavbar />;
