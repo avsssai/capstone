@@ -350,10 +350,14 @@ const Input = styled.input`
 
 const FormWrapper = styled.div`
 	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	grid-template-rows: repeat(2, 1fr);
+
 	padding: 1rem;
 	gap: 1rem;
+
+	@media ${QUERIES.tabletAndUp} {
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: repeat(2, 1fr);
+	}
 `;
 
 const BorderWrapper = styled.div`

@@ -37,12 +37,15 @@ const Wrapper = styled.div`
 const ModalWrapper = styled.div`
 	position: fixed;
 	z-index: 1100;
-
+	max-width: 350px;
 	background: white;
-	top: 40%;
+	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	border-radius: 10px;
+	@media ${QUERIES.tabletAndUp} {
+		max-width: 100%;
+	}
 `;
 
 const ModalHeader = styled.h2`
